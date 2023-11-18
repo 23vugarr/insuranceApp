@@ -13,8 +13,6 @@ services:
       - 5432:5432
     networks:
       - appNetwork
-    volumes:
-      - db_vol:/var/lib/postgresql/data
 
   
   # backend:
@@ -31,6 +29,3 @@ services:
 
 networks:
   appNetwork:
-
-volumes:
-  db_vol:
