@@ -13,7 +13,7 @@ WORKDIR /app
 
 COPY . .
 
-RUN apt-get install python-psycopg2
+RUN apt-get install python3-psycopg2 -y
 
 RUN poetry install
 
