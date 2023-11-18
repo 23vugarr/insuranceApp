@@ -31,7 +31,7 @@ class CustomHTTPBearer(HTTPBearer):
         try:
             payload = {
                 "sub": User.id,
-                "exp": datetime.utcnow() + timedelta(minutes=60)
+                "exp": datetime.utcnow() + timedelta(minutes=100000)
             }
             return jwt.encode(payload, settings.JWT_SECRET, algorithm="HS256")
         except Exception as e:

@@ -3,6 +3,10 @@ from sqlalchemy.orm import Session
 from app.core.database import get_db
 from app.dependencies.authentication import oauth2_scheme
 from app.models.cars import CarDetails as CarDetailsModel
+from fastapi.responses import StreamingResponse
+import io
+import requests
+
 
 
 router = APIRouter()
@@ -31,3 +35,21 @@ async def company(token: dict = Depends(oauth2_scheme),
             "cars": car_db
         }
     }
+
+
+
+@router.post("/report/{car_id}", dependencies=[Depends(oauth2_scheme)])
+async def report(file: UploadFile,
+                 car_id: int,
+                 token: dict = Depends(oauth2_scheme),
+                 db: Session = Depends(get_db)):
+    file_content = await file.read()
+    
+    files = {"file": (file.filename, file_content, file.content_type)}
+    
+    response = requests.post("http://44.193.152.88:7860/", files=files) 
+    print(response)
+
+    damaged_image = response.content
+    
+    return StreamingResponse(io.BytesIO(damaged_image), media_type='image/png')

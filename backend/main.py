@@ -70,9 +70,9 @@ def create_mock_users():
 
 
 def generate_plate_number():
-    letters = ''.join(choice(ascii_uppercase) for _ in range(3))
+    letters = ''.join(choice(ascii_uppercase) for _ in range(2))
     numbers = ''.join(choice(digits) for _ in range(3))
-    return f"{letters}-{numbers}"
+    return f"10-{letters}-{numbers}"
 
 def create_mock_cars():
     engine = create_engine(settings.DATABASE_URL)
