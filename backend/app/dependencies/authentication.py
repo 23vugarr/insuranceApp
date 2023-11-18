@@ -17,7 +17,6 @@ class CustomHTTPBearer(HTTPBearer):
         res = await super().__call__(request)
         try:
             payload = jwt.decode(res.credentials, settings.JWT_SECRET, algorithms=["HS256"])
-            company = db.query(UserLoginModel).filter(UserLoginModel.id == payload.get("sub")).first()
             
             return payload
         except jwt.PyJWTError as e:
@@ -28,11 +27,11 @@ class CustomHTTPBearer(HTTPBearer):
             raise HTTPException(status_code=403, detail=str(e))
         
         
-    def create_access_token(Company):
+    def create_access_token(User):
         try:
             payload = {
-                "sub": Company.id,
-                "exp": datetime.utcnow() + timedelta(minutes=60)
+                "sub": User.id,
+                "exp": datetime.utcnow() + timedelta(minutes=100000)
             }
             return jwt.encode(payload, settings.JWT_SECRET, algorithm="HS256")
         except Exception as e:

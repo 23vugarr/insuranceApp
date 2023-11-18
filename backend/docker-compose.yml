@@ -1,37 +1,31 @@
 version: '3.8'
 
 services:
-
   db:
     image: postgres:latest
     container_name: postgres
     restart: always
     environment:
       POSTGRES_DB: database
-      POSTGRES_USER": user
+      POSTGRES_USER: user
       POSTGRES_PASSWORD: password
     ports:
       - 5432:5432
     networks:
       - appNetwork
-    volumes:
-      - db_vol:/var/lib/postgresql/data
 
   
-  backend:
-    container_name: backend
-    build:
-      context: .
-      dockerfile: Dockerfile
-    ports:
-      - 8080:80
-    networks:
-      - appNetwork
-    depends_on:
-      - db
+  # backend:
+  #   container_name: backend
+  #   build:
+  #     context: .
+  #     dockerfile: Dockerfile
+  #   ports:
+  #     - 8080:80
+  #   networks:
+  #     - appNetwork
+  #   depends_on:
+  #     - db
 
 networks:
   appNetwork:
-
-volumes:
-  db_vol:
