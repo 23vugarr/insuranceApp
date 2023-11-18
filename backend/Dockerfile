@@ -13,6 +13,7 @@ WORKDIR /app
 
 COPY . .
 
+RUN pip install psycopg2-binary
 RUN poetry install
 
 CMD ["poetry", "run", "uvicorn", "--host","0.0.0.0", "--port", "80", "main:app", "--reload"]
