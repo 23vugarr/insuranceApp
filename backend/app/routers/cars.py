@@ -52,4 +52,4 @@ async def report(file: UploadFile,
 
     damaged_image = response.content
     
-    return StreamingResponse(io.BytesIO(damaged_image), media_type='image/png')
+    return StreamingResponse(io.BytesIO(file_content), media_type='image/jpeg')
