@@ -21,6 +21,9 @@ boto3 = "^1.28.80"
 faker = "^20.0.3"
 psycopg2 = "^2.9.9"
 requests = "^2.31.0"
+beautifulsoup4 = "^4.12.2"
+requests-toolbelt = "^1.0.0"
+gradio-client = "^0.7.0"
 
 
 [build-system]
