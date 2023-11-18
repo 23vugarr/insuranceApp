@@ -1,0 +1,2 @@
+class Datagen():
+    pass

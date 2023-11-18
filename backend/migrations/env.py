@@ -6,6 +6,7 @@ from sqlalchemy import pool
 from alembic import context
 from app.core.database import Base
 from app.models.authentication import UserLogin
+from app.models.cars import CarDetails
 
 
 # this is the Alembic Config object, which provides
