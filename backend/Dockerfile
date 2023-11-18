@@ -13,6 +13,8 @@ WORKDIR /app
 
 COPY . .
 
+RUN apt-get install libpq-dev -y
+
 RUN apt-get install python3-psycopg2 -y
 
 RUN poetry install
