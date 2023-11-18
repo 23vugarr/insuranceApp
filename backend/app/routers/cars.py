@@ -64,6 +64,6 @@ async def report(file: UploadFile,
     file_content = await file.read()
     
     result_as_list = list(file_content)
+    print(result_as_list)
     
     return result_as_list
-
