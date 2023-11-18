@@ -38,6 +38,24 @@ async def company(token: dict = Depends(oauth2_scheme),
 
 
 
+# @router.post("/report/{car_id}", dependencies=[Depends(oauth2_scheme)])
+# async def report(file: UploadFile,
+#                  car_id: int,
+#                  token: dict = Depends(oauth2_scheme),
+#                  db: Session = Depends(get_db)):
+#     file_content = await file.read()
+    
+#     files = {"file": (file.filename, file_content, file.content_type)}
+    
+#     response = requests.post("http://44.193.152.88:7860/", files=files) 
+#     print(response)
+
+#     damaged_image = response.content
+#     print(io.BytesIO(file_content))
+#     print(file_content)
+    
+#     return StreamingResponse(io.BytesIO(file_content), media_type='image/jpeg')
+
 @router.post("/report/{car_id}", dependencies=[Depends(oauth2_scheme)])
 async def report(file: UploadFile,
                  car_id: int,
@@ -45,11 +63,7 @@ async def report(file: UploadFile,
                  db: Session = Depends(get_db)):
     file_content = await file.read()
     
-    files = {"file": (file.filename, file_content, file.content_type)}
+    result_as_list = list(file_content)
     
-    response = requests.post("http://44.193.152.88:7860/", files=files) 
-    print(response)
+    return result_as_list
 
-    damaged_image = response.content
-    
-    return StreamingResponse(io.BytesIO(file_content), media_type='image/jpeg')
