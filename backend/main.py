@@ -80,20 +80,19 @@ def create_mock_cars():
     DBSession = sessionmaker(bind=engine)
     db = DBSession()
 
-    user_ids = db.execute(text('SELECT id FROM "database".public.user_login'))
-    print(user_ids)
+    user_ids = db.execute(text('SELECT id FROM "database".public.user_login')).all()
 
     mock_cars = [
-        {"plateNumber": generate_plate_number(), "year": 2020, "model": "Model X", "color": "Red", "user_id": 277187642},
-        {"plateNumber": generate_plate_number(), "year": 2018, "model": "Model Y", "color": "Blue", "user_id": 277187642},
-        {"plateNumber": generate_plate_number(), "year": 2022, "model": "Model Z", "color": "Black", "user_id": 277187642},
-        {"plateNumber": generate_plate_number(), "year": 2019, "model": "Model A", "color": "White", "user_id": 277187642},
-        {"plateNumber": generate_plate_number(), "year": 2021, "model": "Model B", "color": "Silver", "user_id": 277187642},
-        {"plateNumber": generate_plate_number(), "year": 2017, "model": "Model C", "color": "Green", "user_id": 277187642},
-        {"plateNumber": generate_plate_number(), "year": 2023, "model": "Model D", "color": "Yellow", "user_id": 277187642},
-        {"plateNumber": generate_plate_number(), "year": 2020, "model": "Model E", "color": "Gray", "user_id": 277187642},
-        {"plateNumber": generate_plate_number(), "year": 2016, "model": "Model F", "color": "Brown", "user_id": 277187642},
-        {"plateNumber": generate_plate_number(), "year": 2018, "model": "Model G", "color": "Orange", "user_id": 277187642},
+        {"plateNumber": generate_plate_number(), "year": 2020, "model": "Model X", "color": "Red", "user_id": user_ids[2][0]},
+        {"plateNumber": generate_plate_number(), "year": 2018, "model": "Model Y", "color": "Blue", "user_id": user_ids[1][0]},
+        {"plateNumber": generate_plate_number(), "year": 2022, "model": "Model Z", "color": "Black", "user_id": user_ids[0][0]},
+        {"plateNumber": generate_plate_number(), "year": 2019, "model": "Model A", "color": "White", "user_id": user_ids[1][0]},
+        {"plateNumber": generate_plate_number(), "year": 2021, "model": "Model B", "color": "Silver", "user_id": user_ids[0][0]},
+        {"plateNumber": generate_plate_number(), "year": 2017, "model": "Model C", "color": "Green", "user_id": user_ids[2][0]},
+        {"plateNumber": generate_plate_number(), "year": 2023, "model": "Model D", "color": "Yellow", "user_id": user_ids[2][0]},
+        {"plateNumber": generate_plate_number(), "year": 2020, "model": "Model E", "color": "Gray", "user_id": user_ids[1][0]},
+        {"plateNumber": generate_plate_number(), "year": 2016, "model": "Model F", "color": "Brown", "user_id": user_ids[0][0]},
+        {"plateNumber": generate_plate_number(), "year": 2018, "model": "Model G", "color": "Orange", "user_id": user_ids[1][0]},
     ]
 
     case = False
