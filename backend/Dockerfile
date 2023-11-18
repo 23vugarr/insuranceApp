@@ -13,7 +13,7 @@ WORKDIR /app
 
 COPY . .
 
-RUN pip install psycopg2-binary
+RUN sudo apt-get install python-psycopg2
 
 RUN poetry install
 
