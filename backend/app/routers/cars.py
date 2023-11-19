@@ -3,10 +3,9 @@ from sqlalchemy.orm import Session
 from app.core.database import get_db
 from app.dependencies.authentication import oauth2_scheme
 from app.models.cars import CarDetails as CarDetailsModel
-from keras.utils.data_utils import get_file
+from keras.utils import get_file
 from keras.applications.imagenet_utils import preprocess_input
 from keras.preprocessing.image import img_to_array, load_img
-from keras.utils.data_utils import get_file
 from keras.applications.vgg16 import VGG16
 from datetime import date
 import base64
