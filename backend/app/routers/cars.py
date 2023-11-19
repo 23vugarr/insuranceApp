@@ -69,37 +69,37 @@ async def report(file: UploadFile,
     base64_bytes = base64.b64encode(file_content)
     base64_string = "data:image/jpeg;base64,"+base64_bytes.decode()
 
-    response = requests.post("https://23vugarr-car-parts-damage-detection.hf.space/run/predict", json={
-          "data": [
-            base64_string,
-        ]
-    }).json()
+    # response = requests.post("https://23vugarr-car-parts-damage-detection.hf.space/run/predict", json={
+    #       "data": [
+    #         base64_string,
+    #     ]
+    # }).json()
     
-    damages = response["data"][0][21:]
-    damages = base64.b64decode(damages)
-    damages = list(damages)
+    # damages = response["data"][0][21:]
+    # damages = base64.b64decode(damages)
+    # damages = list(damages)
 
-    scratches = response["data"][1][21:]
-    scratches = base64.b64decode(scratches)
-    scratches = list(scratches)
+    # scratches = response["data"][1][21:]
+    # scratches = base64.b64decode(scratches)
+    # scratches = list(scratches)
 
-    car_parts = response["data"][2][21:]
-    car_parts = base64.b64decode(car_parts)
-    car_parts = list(car_parts)
+    # car_parts = response["data"][2][21:]
+    # car_parts = base64.b64decode(car_parts)
+    # car_parts = list(car_parts)
 
-    damages_info_str = response["data"][3]
+    # damages_info_str = response["data"][3]
 
-    overlayed_damage = response["data"][4][21:]
-    overlayed_damage = base64.b64decode(overlayed_damage)
-    overlayed_damage = list(overlayed_damage)
+    # overlayed_damage = response["data"][4][21:]
+    # overlayed_damage = base64.b64decode(overlayed_damage)
+    # overlayed_damage = list(overlayed_damage)
     
     return {
         "result": {
-            "damages": damages,
-            "scratches": scratches,
-            "car_parts": car_parts,
-            "damages_info_str": damages_info_str,
-            "overlayed_damage": overlayed_damage,
+            "damages": list(file_content),
+            "scratches": list(file_content),
+            "car_parts": list(file_content),
+            "damages_info_str": list(file_content),
+            "overlayed_damage": list(file_content),
             "date": date.today(),
         }
     }
