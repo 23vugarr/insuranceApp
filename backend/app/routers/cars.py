@@ -79,17 +79,17 @@ async def report(file: UploadFile,
     damages = base64.b64decode(damages)
     damages = list(damages)
 
-    scratches = response["data"][1]
+    scratches = response["data"][1][21:]
     scratches = base64.b64decode(scratches)
     scratches = list(scratches)
 
-    car_parts = response["data"][2]
+    car_parts = response["data"][2][21:]
     car_parts = base64.b64decode(car_parts)
     car_parts = list(car_parts)
 
     damages_info_str = response["data"][3]
 
-    overlayed_damage = response["data"][4]
+    overlayed_damage = response["data"][4][21:]
     overlayed_damage = base64.b64decode(overlayed_damage)
     overlayed_damage = list(overlayed_damage)
     
