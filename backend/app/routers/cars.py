@@ -3,10 +3,6 @@ from sqlalchemy.orm import Session
 from app.core.database import get_db
 from app.dependencies.authentication import oauth2_scheme
 from app.models.cars import CarDetails as CarDetailsModel
-from keras.utils import get_file
-from keras.applications.imagenet_utils import preprocess_input
-from keras.preprocessing.image import img_to_array, load_img
-from keras.applications.vgg16 import VGG16
 from datetime import date
 import base64
 import requests
@@ -23,7 +19,6 @@ async def company(token: dict = Depends(oauth2_scheme),
     try:
         user_id = token.get("sub")
         car_db = db.query(CarDetailsModel).filter(CarDetailsModel.user_id == user_id).all()
-
 
         if(not car_db):
             return {
@@ -90,7 +85,7 @@ async def report(file: UploadFile,
     }
 
 
-@router.post("/validate/{car_id}", dependencies = [Depends(oauth2_scheme)])
+@router.post("/validate/{car_id}", dependencies = [Depends(oauth2_scheme)], status_code=200)
 async def validate(file: UploadFile,
                  car_id: int,
                  token: dict = Depends(oauth2_scheme),
@@ -100,6 +95,11 @@ async def validate(file: UploadFile,
         return {
             "testing": "request"
         }
+    
+    from keras.utils import get_file
+    from keras.applications.imagenet_utils import preprocess_input
+    from keras.preprocessing.image import img_to_array, load_img
+    from keras.applications.vgg16 import VGG16
     
     with open('vgg16_cat_list.pk', 'rb') as f:
         cat_list = pk.load(f)
@@ -140,4 +140,4 @@ async def validate(file: UploadFile,
                 return True
         return False 
     
-    return pipe1(file, model1)
+    return pipe1(prepare_image_224(file), model1)
