@@ -47,5 +47,12 @@
 	<true/>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>For user to be able to track themselves and place the location of the delivery, track the delivery of their order.</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>For user to be able to track themselves and place the location of the delivery, track the delivery of their order.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>For user to be able to track themselves and place the location of the delivery, track the delivery of their order.</string>
+		
 </dict>
 </plist>

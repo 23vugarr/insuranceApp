@@ -11,8 +11,8 @@ class AuthResponse implements BaseApiResponse<Tokens>{
     this.hasErrors,
   });
 
-  AuthResponse.fromJson(Map<String, dynamic> json)
-    : result = (json['result'] as Map<String,dynamic>?) != null ? Tokens.fromJson(json['result'] as Map<String,dynamic>) : null,
+  AuthResponse.fromJson(Map<String, dynamic> json, bool isSignUp)
+    : result = (json['result'] as Map<String,dynamic>?) != null ? Tokens.fromJson(json['result'] as Map<String,dynamic>, isSignUp) : null,
       hasErrors = json['result'] == null;
 
   @override
@@ -29,8 +29,8 @@ class Tokens {
     this.accessToken,
   });
 
-  Tokens.fromJson(Map<String, dynamic> json)
-    : accessToken = json['access_token'] as String?;
+  Tokens.fromJson(Map<String, dynamic> json, bool isSignUp)
+    : accessToken = json[isSignUp ? 'accessToken' : 'access_token'] as String?;
 
   Map<String, dynamic> toJson() => {
     'access_token' : accessToken,

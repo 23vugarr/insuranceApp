@@ -11,7 +11,7 @@ import 'package:pasha_insurance/ui/widgets/custom/loading_spinner.dart';
 import 'package:pasha_insurance/ui/widgets/helpers/empty_space.dart';
 import 'package:provider/provider.dart';
 
-class ReportDamageScreen extends StatefulWidget {
+class ReportDamageScreen extends StatefulWidget { // todo: remove!
   final File file;
 
   const ReportDamageScreen({super.key, required this.file});
@@ -44,34 +44,37 @@ class _ReportDamageScreenState extends State<ReportDamageScreen> {
 
   Widget _buildBody() {
     return Scaffold( 
-      appBar: AppBar(title: Text("Car Details")),
-      body: SingleChildScrollView(
-        child: Consumer<AccountState>(
-          builder: (context, userState, _) {
-            if (userState.isLoading) {
-              return const LoadingSpinner();
-            } else if (userState.userModel == null) {
-              return const Center(child: Text("User is not loaded!", style: AppTextStyles.body1Size16));
-            }
-            return SizedBox(
-              height: MediaQuery.of(context).size.height - (Scaffold.of(context).appBarMaxHeight ?? 0),
-              width: MediaQuery.of(context).size.width,
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    EmptySpace.vertical(16),
-                    _buildImageView(),
-                    const Spacer(),
-                    _buildButton(),
-                    EmptySpace.vertical(48),
-                  ],
-                ),
-              ),
-            );
-          },
-        ),
+      appBar: AppBar(title: const Text("Car Details", style: AppTextStyles.headline2Size20)),
+      body: Builder(
+        builder: (context) {
+          return SizedBox(
+            height: MediaQuery.of(context).size.height - (Scaffold.of(context).appBarMaxHeight ?? 0),
+            width: MediaQuery.of(context).size.width,
+            child: Consumer<AccountState>(
+              builder: (context, userState, _) {
+                if (userState.isLoading) {
+                  return const LoadingSpinner();
+                } else if (userState.userModel == null) {
+                  return const Center(child: Text("User is not loaded!", style: AppTextStyles.body1Size16));
+                }
+                return Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  child: ListView(
+                    shrinkWrap: true,
+                    physics: const BouncingScrollPhysics(),
+                    children: [
+                      EmptySpace.vertical(16),
+                      _buildImageView(),
+                      EmptySpace.vertical(16),
+                      _buildButton(),
+                      EmptySpace.vertical(48),
+                    ],
+                  ),
+                );
+              },
+            ),
+          );
+        }
       ),
     );
   }

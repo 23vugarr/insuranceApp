@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:pasha_insurance/ui/widgets/text_fields/auth_text_field.dart';
+import 'package:pasha_insurance/utils/helpers/validator.dart';
 
 class PasswordTextField extends StatelessWidget {
   const PasswordTextField({
@@ -21,7 +22,7 @@ class PasswordTextField extends StatelessWidget {
       includeObscureTextIcon: true,
       textInputAction: TextInputAction.next,
       textCapitalization: TextCapitalization.none,
-      // validator: Validator.validatePassword,
+      validator: Validator.validatePassword,
     );
   }
 }

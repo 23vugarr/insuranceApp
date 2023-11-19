@@ -34,7 +34,7 @@ class AuthBloc extends HydratedBloc<AuthEvent, AuthState> {
       password: event.password,
     );
     final ApiResponseModel<Tokens> resp = await _authenticationService.signIn(dto);
-    _handleAuthResponse(resp, emit);
+    _handleAuthResponse(resp, emit, isSignUp: false);
   }
 
   FutureOr<void> _onSignUpEvent(SignUpEvent event, Emitter<AuthState> emit) async {
@@ -45,11 +45,11 @@ class AuthBloc extends HydratedBloc<AuthEvent, AuthState> {
       password: event.password,
     );
     final ApiResponseModel<Tokens> resp = await _authenticationService.signUp(dto);
-    _handleAuthResponse(resp, emit);
+    _handleAuthResponse(resp, emit, isSignUp: true);
   }
 
 
-  void _handleAuthResponse(ApiResponseModel<Tokens> resp, Emitter<AuthState> emit, {bool fromRefreshToken = false}) {
+  void _handleAuthResponse(ApiResponseModel<Tokens> resp, Emitter<AuthState> emit, {required bool isSignUp}) {
     if (resp.hasErrors) {
       emit(const FailedAuthorizationState()); 
       emit(const NotAuthorizedState());
@@ -64,7 +64,6 @@ class AuthBloc extends HydratedBloc<AuthEvent, AuthState> {
 
   @override
   AuthState? fromJson(Map<String, dynamic> json) {
-    // return null;
     AuthState? authState; 
     final String stateType = json['stateType']; 
     if (stateType == AuthStateType.AUTHORIZED.name) {

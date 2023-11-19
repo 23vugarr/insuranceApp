@@ -1,16 +1,23 @@
-import 'dart:io';
-import 'dart:typed_data';
+// ignore_for_file: unused_field
 
+import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:pasha_insurance/mappers/report_mapper.dart';
+import 'package:pasha_insurance/models/data/report_model.dart';
+import 'package:pasha_insurance/models/response/report_response.dart';
 import 'package:pasha_insurance/services/API/user_service.dart';
 import 'package:pasha_insurance/services/file_picker_service.dart';
+import 'package:pasha_insurance/services/service_locator.dart';
 
 class ReportState extends ChangeNotifier {
-  final FilePickerService _filePickerService = FilePickerService();
-  final UserService _userService = UserService();
+  final FilePickerService _filePickerService = locator<FilePickerService>();
+  final UserService _userService = locator<UserService>();
+  final ReportMapper _reportMapper = locator<ReportMapper>();
 
   File? _selectedFile;
+  ReportModel? _lastReport;
   bool _isLoadingImage = false;
   bool _isReportLoading = false;
 
@@ -38,17 +45,26 @@ class ReportState extends ChangeNotifier {
     return _selectedFile != null;
   }
 
-  Future<Uint8List?> sendReport(BuildContext context, int carId) async {
+  Future<ReportModel?> sendReport(BuildContext context, int carId) async {
     if (_selectedFile == null) return null;
     _isReportLoading = true;
     notifyListeners();
 
-    final Uint8List? bytes = await _userService.sendDamageImage(context, _selectedFile!, carId);
+    final ReportResponse? resp = await _userService.sendDamageImage(context, _selectedFile!, carId);
 
     _isReportLoading = false;
     notifyListeners();
 
-    return bytes;
+    if (resp?.result != null && !(resp?.hasErrors ?? true)) {
+      _lastReport = _reportMapper.convert(resp!.result!);
+      return _reportMapper.convert(resp.result!);
+    } else {
+      return null;
+    }
+  }
+
+  Future<bool> confirmReport({required LatLng location, required bool callEvacuator}) async {
+    return true;
   }
 
   File? get selectedFile => _selectedFile;

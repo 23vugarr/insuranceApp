@@ -5,7 +5,7 @@ class LoadingSpinner extends StatelessWidget {
   final double size;
 
   const LoadingSpinner({super.key,
-    this.size = 100,
+    this.size = 50,
   });
 
   @override

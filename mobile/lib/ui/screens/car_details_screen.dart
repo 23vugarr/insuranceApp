@@ -48,42 +48,41 @@ class _CarDetailsScreenState extends State<CarDetailsScreen> {
 
   Widget _buildBody() {
     return Scaffold( 
-      appBar: AppBar(title: Text("Car Details")),
-      body: SingleChildScrollView(
-        child: Consumer<AccountState>(
-          builder: (context, userState, _) {
-            if (userState.isLoading) {
-              return const LoadingSpinner();
-            } else if (userState.userModel == null) {
-              return const Center(child: Text("User is not loaded!", style: AppTextStyles.body1Size16));
-            }
-            return SizedBox(
-              height: MediaQuery.of(context).size.height - (Scaffold.of(context).appBarMaxHeight ?? 0),
-              width: MediaQuery.of(context).size.width,
-              child: Padding(
+      appBar: AppBar(title: const Text("Car Details", style: AppTextStyles.headline2Size20)),
+      body: Builder(
+        builder: (context) {
+          return Consumer<AccountState>(
+            builder: (context, userState, _) {
+              if (userState.isLoading) {
+                return const LoadingSpinner();
+              } else if (userState.userModel == null) {
+                return const Center(child: Text("User is not loaded!", style: AppTextStyles.body1Size16));
+              }
+              return Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                child: ListView(
+                  shrinkWrap: true,
+                  physics: const BouncingScrollPhysics(),
                   children: [
                     EmptySpace.vertical(16),
                     _buildCard(),
                     EmptySpace.vertical(16),
                     _buildCarInfo(),
-                    const Spacer(),
+                    EmptySpace.vertical(16),
                     _buildButtons(),
                     EmptySpace.vertical(48),
                   ],
                 ),
-              ),
-            );
-          },
-        ),
+              );
+            },
+          );
+        }
       ),
     );
   }
   
   Widget _buildCard() {
-    return Center(child: CarCard(carModel: widget.carModel));
+    return Center(child: IgnorePointer(child: CarCard(carModel: widget.carModel)));
   }
   
   Widget _buildCarInfo() {
@@ -99,9 +98,9 @@ class _CarDetailsScreenState extends State<CarDetailsScreen> {
             showCustomModalBottomSheet(
               context: context, 
               builder: (context) {
-                return TakePhotoBottomPanel(carId: widget.carModel.id ?? 0);// todo: change
+                return TakePhotoBottomPanel(carModel: widget.carModel);
               },
-              backgroundColor: AppColors.lightGreyColor,
+              backgroundColor: AppColors.white.withOpacity(0.8),
             );
           },
         )

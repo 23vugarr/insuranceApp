@@ -17,7 +17,7 @@ class AuthenticationService extends BaseAPIService implements BaseAuthService {
       apiMethod: ApiMethod.POST,
       data: signInReqDTO.toJson(),
       operate: (resp) {
-        final AuthResponse authResponse = AuthResponse.fromJson(resp.data);
+        final AuthResponse authResponse = AuthResponse.fromJson(resp.data, false);
         if (!(authResponse.hasErrors ?? true)) {
           return authResponse.result!;
         }
@@ -33,7 +33,7 @@ class AuthenticationService extends BaseAPIService implements BaseAuthService {
       apiMethod: ApiMethod.POST,
       data: signUpReqDTO.toJson(),
       operate: (resp) {
-        final AuthResponse authResponse = AuthResponse.fromJson(resp.data);
+        final AuthResponse authResponse = AuthResponse.fromJson(resp.data, true);
         if (!(authResponse.hasErrors ?? true)) {
           return authResponse.result;
         }

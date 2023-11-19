@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:pasha_insurance/mappers/car_mapper.dart';
+import 'package:pasha_insurance/mappers/report_mapper.dart';
 import 'package:pasha_insurance/mappers/tokens_mapper.dart';
 import 'package:pasha_insurance/mappers/user_mapper.dart';
 import 'package:pasha_insurance/services/API/authentication_service.dart';
@@ -30,5 +31,6 @@ class ServiceLocator {
     locator.registerLazySingleton<TokensMapper>(() => TokensMapper());
     locator.registerLazySingleton<UserMapper>(() => UserMapper());
     locator.registerLazySingleton<CarMapper>(() => CarMapper());
+    locator.registerLazySingleton<ReportMapper>(() => ReportMapper());
   }
 }

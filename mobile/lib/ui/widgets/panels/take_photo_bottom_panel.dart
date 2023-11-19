@@ -1,25 +1,29 @@
-import 'dart:typed_data';
-import 'dart:ui';
+// ignore_for_file: use_build_context_synchronously
 
+import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:pasha_insurance/constants/style/app_colors.dart';
 import 'package:pasha_insurance/constants/style/app_text_styles.dart';
+import 'package:pasha_insurance/models/data/car_model.dart';
+import 'package:pasha_insurance/models/data/report_model.dart';
+import 'package:pasha_insurance/models/enum/awareness_level.dart';
 import 'package:pasha_insurance/states/provider/report_state.dart';
+import 'package:pasha_insurance/ui/screens/report_results_screen.dart';
+import 'package:pasha_insurance/ui/widgets/dialog/result/result_dialog.dart';
 import 'package:pasha_insurance/ui/widgets/helpers/empty_space.dart';
 import 'package:pasha_insurance/utils/toast_notifier.dart';
 import 'package:provider/provider.dart';
 
 class TakePhotoBottomPanel extends StatefulWidget {
-  final int carId;
+  final CarModel carModel;
 
-  TakePhotoBottomPanel({super.key, required this.carId});
+  const TakePhotoBottomPanel({super.key, required this.carModel});
 
   @override
   State<TakePhotoBottomPanel> createState() => _TakePhotoBottomPanelState();
 }
 
 class _TakePhotoBottomPanelState extends State<TakePhotoBottomPanel> {
-  Image? _image;
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +40,6 @@ class _TakePhotoBottomPanelState extends State<TakePhotoBottomPanel> {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
             children: [
-              _image ?? SizedBox(),
               Center(
                 child: Container(
                   width: 50,
@@ -108,38 +111,35 @@ class _TakePhotoBottomPanelState extends State<TakePhotoBottomPanel> {
   void _onSelectPhotoTap(BuildContext context) async {
     final ReportState reportState = Provider.of<ReportState>(context, listen: false);
     final bool isSuccess = await reportState.pickImageFromGalery();
-    // setState(() {
-    //   _image = Image.file(reportState.selectedFile!);
-    // });
     if (isSuccess) {
-      final Uint8List? bytes = await reportState.sendReport(context, widget.carId);
-      if (bytes != null) {
-        setState(() {
-          _image = Image.memory(bytes);
-          // _image = MemoryImage(bytes);
-        });
-      }
+      _sendReport(context);
     } else {
-      ToastNotifier.showToast(message: "Something went wrong... Please try again later.");
+      ToastNotifier.showToast(message: "Something went wrong... Please try again later.", awarenessLevel: AwarenessLevel.ERROR);
     }
   }
 
   void _onTakePhotoTap(BuildContext context) async {
     final ReportState reportState = Provider.of<ReportState>(context, listen: false);
     final bool isSuccess = await reportState.pickImageFromCamera();
-    // setState(() {
-    //   _image = Image.file(reportState.selectedFile!);
-    // });
     if (isSuccess) {
-      final Uint8List? bytes = await reportState.sendReport(context, widget.carId);
-      if (bytes != null) {
-        setState(() {
-          _image = Image.memory(bytes);
-          // _image = MemoryImage(bytes);
-        });
-      }
+      _sendReport(context);
     } else {
-      ToastNotifier.showToast(message: "Something went wrong... Please tr");
+      ToastNotifier.showToast(message: "Something went wrong... Please try again later.", awarenessLevel: AwarenessLevel.ERROR);
     }
+  }
+
+  void _sendReport(BuildContext context) {
+    makeResultantRequest<ReportModel?>(
+      context: context,
+      asyncRequest: Provider.of<ReportState>(context, listen: false).sendReport(context, widget.carModel.id ?? 0),
+      isSuccessful: (resp) => resp != null,
+      onResult: (success, resp) {
+        if (success) {
+          ReportResultsScreen.open(context, reportModel: resp!, carModel: widget.carModel);
+        } else {
+          ToastNotifier.showToast(message: "Something went wrong... Please try again later.", awarenessLevel: AwarenessLevel.ERROR);
+        }
+      },
+    );
   }
 }

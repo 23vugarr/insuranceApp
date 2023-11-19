@@ -4,7 +4,10 @@ import 'package:pasha_insurance/constants/strings/assets.dart';
 import 'package:pasha_insurance/constants/style/app_colors.dart';
 import 'package:pasha_insurance/constants/style/app_text_styles.dart';
 import 'package:pasha_insurance/models/data/car_model.dart';
+import 'package:pasha_insurance/models/data/report_model.dart';
 import 'package:pasha_insurance/ui/screens/car_details_screen.dart';
+import 'package:pasha_insurance/ui/screens/report_results_screen.dart';
+import 'package:pasha_insurance/ui/screens/select_accident_location_screen.dart';
 import 'package:pasha_insurance/ui/widgets/helpers/empty_space.dart';
 
 class CarCard extends StatelessWidget {

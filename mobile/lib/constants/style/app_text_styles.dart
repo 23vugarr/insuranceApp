@@ -13,7 +13,7 @@ class AppTextStyles {
 
   static const TextStyle overline = TextStyle(fontSize: 10, fontWeight: FontWeight.w400, letterSpacing: 1.5, height: 12 / 10);
   static       TextStyle overlineSize12 = captionSize12.copyWith(decoration: TextDecoration.lineThrough, height: 1);
-  static       TextStyle greyOverline = overline.copyWith(fontSize: 12);  // todo: add grey
+  static       TextStyle greyOverline = overline.copyWith(fontSize: 12);
 
   static const TextStyle subtitle1Size16 = TextStyle(fontSize: 16, fontWeight: FontWeight.w400, letterSpacing: 0.15, height: 20 / 16);
 

@@ -6,7 +6,7 @@ class ToastNotifier {
   ToastNotifier._();
 
   static showToast({required String message, AwarenessLevel? awarenessLevel}) {
-    late final Color toastColor;  // todo: make it AppColors
+    late final Color toastColor;
 
     switch (awarenessLevel) {
       case AwarenessLevel.SUCCESS:
@@ -22,6 +22,6 @@ class ToastNotifier {
         toastColor = Colors.grey;
     }
 
-    Fluttertoast.showToast(msg: message, toastLength: Toast.LENGTH_SHORT, gravity: ToastGravity.CENTER, timeInSecForIosWeb: 1, backgroundColor: toastColor, textColor: Colors.grey, fontSize: 16.0);
+    Fluttertoast.showToast(msg: message, toastLength: Toast.LENGTH_SHORT, gravity: ToastGravity.CENTER, timeInSecForIosWeb: 1, backgroundColor: toastColor, textColor: Colors.white, fontSize: 16.0);
   }
 }

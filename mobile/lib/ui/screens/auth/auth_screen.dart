@@ -48,11 +48,10 @@ class _AuthScreenState extends State<AuthScreen> {
           mainAxisSize: MainAxisSize.min,
           children: [
             const Spacer(flex: 2),
-            _buildLogo(), // todo: add logo
+            _buildLogo(),
             const Spacer(flex: 1),
             widget.buildForm(),
             EmptySpace.vertical(24),
-            // todo: add fogot password when it is done in backend
             widget.buildButton(context),
             const Spacer(flex: 2),
             buildClickableSuggestionText(context),

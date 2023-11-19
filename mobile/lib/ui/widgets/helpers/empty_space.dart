@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class EmptySpace {  // todo: change to Gap()
+class EmptySpace {
   EmptySpace._();
 
   static Widget vertical(double value) => SizedBox(height: value);

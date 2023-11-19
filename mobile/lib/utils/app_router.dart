@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:pasha_insurance/constants/strings/app_router_consts.dart';
 import 'package:pasha_insurance/models/data/car_model.dart';
+import 'package:pasha_insurance/models/data/report_model.dart';
 import 'package:pasha_insurance/states/bloc/auth/auth_bloc.dart';
 import 'package:pasha_insurance/ui/screens/auth/sign_in_screen.dart';
 import 'package:pasha_insurance/ui/screens/auth/sign_up_screen.dart';
@@ -13,6 +14,8 @@ import 'package:pasha_insurance/ui/screens/car_details_screen.dart';
 import 'package:pasha_insurance/ui/screens/home/home_screen.dart';
 import 'package:pasha_insurance/ui/screens/error/no_route_defined_screen.dart';
 import 'package:pasha_insurance/ui/screens/report_damage_screen.dart';
+import 'package:pasha_insurance/ui/screens/report_results_screen.dart';
+import 'package:pasha_insurance/ui/screens/select_accident_location_screen.dart';
 import 'package:pasha_insurance/utils/helpers/app_router_refresh_stream.dart';
 
 class AppRouter {
@@ -53,6 +56,18 @@ class AppRouter {
           path: AppRouterConsts.reportDamagedCarPath,
           pageBuilder: (context, state) {
             return MaterialPage(child: ReportDamageScreen(file: state.extra as File));
+          },
+        ),
+        GoRoute(
+          path: AppRouterConsts.selectAccidentLocationPath,
+          pageBuilder: (context, state) {
+            return MaterialPage(child: SelectAccidentLocationScreen(needToCallEvacuator: (state.extra as Map<String, dynamic>)['needToCallEvacuator']));
+          },
+        ),
+        GoRoute(
+          path: AppRouterConsts.reportResultsPath,
+          pageBuilder: (context, state) {
+            return MaterialPage(child: ReportResultsScreen(reportModel: ReportModel.fromJson((state.extra as Map<String, dynamic>)['reportModel']), carModel: CarModel.fromJson((state.extra as Map<String, dynamic>)['carModel'])));
           },
         ),
       ],

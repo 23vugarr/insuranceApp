@@ -6,4 +6,5 @@ class Assets {
   static const String settingsIcon = 'assets/icons/settings.svg';
 
   static const String carIcon = 'assets/icons/car.svg';
+  static const String locationPicker = "assets/icons/location_selector.svg";
 }
