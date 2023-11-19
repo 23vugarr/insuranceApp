@@ -63,7 +63,6 @@ def create_mock_users():
         try:
             db.commit()
         except Exception as e:
-            print(e)
             return False
     
     return True
@@ -80,47 +79,50 @@ def create_mock_cars():
     DBSession = sessionmaker(bind=engine)
     db = DBSession()
 
-    user_ids = db.execute(text('SELECT id FROM "database".public.user_login')).all()
+    counter = db.execute(text('SELECT * FROM "database".public.car_details')).all()
+    print(counter)
+    if(not counter):
+        user_ids = db.execute(text('SELECT id FROM "database".public.user_login')).all()
 
-    mock_cars = [
-        {"plateNumber": generate_plate_number(), "year": 2020, "model": "Model X", "color": "Red", "user_id": user_ids[2][0]},
-        {"plateNumber": generate_plate_number(), "year": 2018, "model": "Model Y", "color": "Blue", "user_id": user_ids[1][0]},
-        {"plateNumber": generate_plate_number(), "year": 2022, "model": "Model Z", "color": "Black", "user_id": user_ids[0][0]},
-        {"plateNumber": generate_plate_number(), "year": 2019, "model": "Model A", "color": "White", "user_id": user_ids[1][0]},
-        {"plateNumber": generate_plate_number(), "year": 2021, "model": "Model B", "color": "Silver", "user_id": user_ids[0][0]},
-        {"plateNumber": generate_plate_number(), "year": 2017, "model": "Model C", "color": "Green", "user_id": user_ids[2][0]},
-        {"plateNumber": generate_plate_number(), "year": 2023, "model": "Model D", "color": "Yellow", "user_id": user_ids[2][0]},
-        {"plateNumber": generate_plate_number(), "year": 2020, "model": "Model E", "color": "Gray", "user_id": user_ids[1][0]},
-        {"plateNumber": generate_plate_number(), "year": 2016, "model": "Model F", "color": "Brown", "user_id": user_ids[0][0]},
-        {"plateNumber": generate_plate_number(), "year": 2018, "model": "Model G", "color": "Orange", "user_id": user_ids[1][0]},
-    ]
+        mock_cars = [
+            {"plateNumber": generate_plate_number(), "year": 2020, "model": "Model X", "color": "Red", "user_id": user_ids[2][0]},
+            {"plateNumber": generate_plate_number(), "year": 2018, "model": "Model Y", "color": "Blue", "user_id": user_ids[1][0]},
+            {"plateNumber": generate_plate_number(), "year": 2022, "model": "Model Z", "color": "Black", "user_id": user_ids[0][0]},
+            {"plateNumber": generate_plate_number(), "year": 2019, "model": "Model A", "color": "White", "user_id": user_ids[1][0]},
+            {"plateNumber": generate_plate_number(), "year": 2021, "model": "Model B", "color": "Silver", "user_id": user_ids[0][0]},
+            {"plateNumber": generate_plate_number(), "year": 2017, "model": "Model C", "color": "Green", "user_id": user_ids[2][0]},
+            {"plateNumber": generate_plate_number(), "year": 2023, "model": "Model D", "color": "Yellow", "user_id": user_ids[2][0]},
+            {"plateNumber": generate_plate_number(), "year": 2020, "model": "Model E", "color": "Gray", "user_id": user_ids[1][0]},
+            {"plateNumber": generate_plate_number(), "year": 2016, "model": "Model F", "color": "Brown", "user_id": user_ids[0][0]},
+            {"plateNumber": generate_plate_number(), "year": 2018, "model": "Model G", "color": "Orange", "user_id": user_ids[1][0]},
+        ]
 
-    case = False
+        case = False
 
-    for car_data in mock_cars:
-        try:
-            car = CarDetails(
-                plateNumber=car_data["plateNumber"],
-                year=car_data["year"],
-                model=car_data["model"],
-                color=car_data["color"],
-                user_id=car_data["user_id"],
-                created_at=datetime.now()
-            )
-            db.add(car)
-            case = True
-        except Exception as e:
-            print(e)
-            return False
+        for car_data in mock_cars:
+            try:
+                car = CarDetails(
+                    plateNumber=car_data["plateNumber"],
+                    year=car_data["year"],
+                    model=car_data["model"],
+                    color=car_data["color"],
+                    user_id=car_data["user_id"],
+                    created_at=datetime.now()
+                )
+                db.add(car)
+                case = True
+            except Exception as e:
+                print(e)
+                return False
 
-    if case:
-        try:
-            db.commit()
-        except Exception as e:
-            print(e)
-            return False
+        if case:
+            try:
+                db.commit()
+            except Exception as e:
+                print(e)
+                return False
 
-    return True
+        return True
 
 
 mock_users = create_mock_users()
