@@ -24,6 +24,8 @@ requests = "^2.31.0"
 beautifulsoup4 = "^4.12.2"
 requests-toolbelt = "^1.0.0"
 gradio-client = "^0.7.0"
+numpy = "^1.26.2"
+keras = "^2.15.0"
 
 
 [build-system]
