@@ -27,7 +27,7 @@ services:
     depends_on:
       - db
     command: >
-      /bin/bash -c "poetry run alembic init migrations &&
+      /bin/bash -c "poetry run alembic init migrations && cp env.py migrations/ &&
                     poetry run alembic revision --autogenerate -m 'Initial migration' &&
                     poetry run alembic upgrade head"
 
