@@ -26,6 +26,11 @@ services:
       - appNetwork
     depends_on:
       - db
+    command: >
+      /bin/bash -c "alembic init migrations &&
+                    alebic revismion --autogenerate -m 'Initial migration' &&
+                    alembic upgrade head
+
 
 networks:
   appNetwork:
