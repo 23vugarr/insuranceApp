@@ -27,9 +27,9 @@ services:
     depends_on:
       - db
     command: >
-      /bin/bash -c "alembic init migrations &&
-                    alebic revision --autogenerate -m 'Initial migration' &&
-                    alembic upgrade head"
+      /bin/bash -c "poetry run alembic init migrations &&
+                    poetry run alebic revision --autogenerate -m 'Initial migration' &&
+                    poetry run alembic upgrade head"
 
 networks:
   appNetwork:
