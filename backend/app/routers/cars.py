@@ -42,6 +42,7 @@ async def report(
     file_content = await file.read()
     base64_bytes = base64.b64encode(file_content)
     base64_string = "data:image/jpeg;base64," + base64_bytes.decode()
+    print(base64_string)
 
     response = requests.post(
         "https://23vugarr-car-parts-damage-detection.hf.space/run/predict",
