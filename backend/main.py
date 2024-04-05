@@ -40,6 +40,12 @@ def create_mock_users():
         "surname": "Taghiyev",
         "fin": "AAABBBM",
         "phoneNumber": "553600600"
+    },
+    {
+        "name": "Gultaj",
+        "surname": "Seyid",
+        "fin": "AAABBBG",
+        "phoneNumber": "774861049"
     }
     
 ]
@@ -95,6 +101,9 @@ def create_mock_cars():
             {"plateNumber": generate_plate_number(), "year": 2020, "model": "Model E", "color": "Gray", "user_id": user_ids[1][0]},
             {"plateNumber": generate_plate_number(), "year": 2016, "model": "Model F", "color": "Brown", "user_id": user_ids[0][0]},
             {"plateNumber": generate_plate_number(), "year": 2018, "model": "Model G", "color": "Orange", "user_id": user_ids[1][0]},
+            {"plateNumber": generate_plate_number(), "year": 2020, "model": "Porsche", "color": "Gray", "user_id": user_ids[3][0]},
+            {"plateNumber": generate_plate_number(), "year": 2016, "model": "Ferrari", "color": "Brown", "user_id": user_ids[3][0]},
+
         ]
 
         case = False

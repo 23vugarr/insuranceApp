@@ -37,7 +37,6 @@ async def report(
     file: UploadFile,
     car_id: int,
     token: dict = Depends(oauth2_scheme),
-    db: Session = Depends(get_db),
 ):
     file_content = await file.read()
     base64_bytes = base64.b64encode(file_content)
@@ -70,6 +69,7 @@ async def report(
     overlayed_damage = response["data"][4][21:]
     overlayed_damage = base64.b64decode(overlayed_damage)
     overlayed_damage = list(overlayed_damage)
+    print(damages)
 
     return {
         "result": {
