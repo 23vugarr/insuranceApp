@@ -28,7 +28,7 @@ services:
       - db
     command: >
       /bin/bash -c "poetry run alembic init migrations &&
-                    poetry run alebic revision --autogenerate -m 'Initial migration' &&
+                    poetry run alembic revision --autogenerate -m 'Initial migration' &&
                     poetry run alembic upgrade head"
 
 networks:
